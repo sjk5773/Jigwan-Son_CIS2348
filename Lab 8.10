@@ -1,0 +1,20 @@
+br = input()
+low = 0
+high = len(br)-1
+output = True
+while(low < high):
+    if(br[low] == ' '):
+        low += 1
+    elif(br[high] == ' '):
+        high -= 1
+    elif(br[low] != br[high]):
+        output = False
+        break
+    else:
+        low += 1
+        high -= 1
+
+if(output):
+    print(br,"is a palindrome")
+else:
+    print(br, "is not a palindrome")
