@@ -1,0 +1,48 @@
+list = {"january": "1", "febrary": "2", "march": "3", "april": "4",
+              "may": "5", "june": "6", "july": "7", "august": "8",
+              "september": "9", "october": "10", "november": "11", "december": "12"}
+
+def get_dates(dates_str):
+    data = ""
+    month_end = dates_str.find(" ")
+    month = dates_str[:month_end]
+
+    try:
+        date = list[month.lower()]
+    except KeyError:
+        return None
+
+    date_end = dates_str[month_end + 1:].find(",")
+    if date_end < 0:
+        return None
+    day = dates_str[month_end + 1:month_end + date_end + 1]
+
+    try:
+        int(day)
+    except ValueError:
+        return None
+
+    year_end = dates_str[month_end + date_end + 3:]
+
+    try:
+        int(year_end)
+    except ValueError:
+        return None
+
+    date = list[month.lower()] + '/' + day + '/' + year_end
+    return date
+
+
+if __name__ == "__main__":
+
+    f = open("inputDates.txt","r")
+    date_data = f.read().split('\n')
+    f.close()
+
+    f = open("parsedDates.txt","w")
+    for date in date_data:
+        print(date)
+        new_date = get_dates(date)
+        f.writelines(new_date+"\n")
+        print(new_date)
+    f.close()
