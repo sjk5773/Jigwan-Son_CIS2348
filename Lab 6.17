@@ -1,0 +1,18 @@
+word = input()
+password = ''
+
+for a in word:
+    if(a == 'i'):
+        password+="!"
+    elif(a == 'a'):
+        password += "@"
+    elif (a == 'm'):
+        password += "M"
+    elif (a == 'B'):
+        password += "8"
+    elif (a == 'o'):
+        password += "."
+    else:
+        password += a
+password += "q*s"
+print(password)
