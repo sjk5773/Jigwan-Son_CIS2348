@@ -1,48 +1,43 @@
-list = {"january": "1", "febrary": "2", "march": "3", "april": "4",
-              "may": "5", "june": "6", "july": "7", "august": "8",
-              "september": "9", "october": "10", "november": "11", "december": "12"}
-
-def get_dates(dates_str):
-    data = ""
-    month_end = dates_str.find(" ")
-    month = dates_str[:month_end]
-
-    try:
-        date = list[month.lower()]
-    except KeyError:
-        return None
-
-    date_end = dates_str[month_end + 1:].find(",")
-    if date_end < 0:
-        return None
-    day = dates_str[month_end + 1:month_end + date_end + 1]
-
-    try:
-        int(day)
-    except ValueError:
-        return None
-
-    year_end = dates_str[month_end + date_end + 3:]
-
-    try:
-        int(year_end)
-    except ValueError:
-        return None
-
-    date = list[month.lower()] + '/' + day + '/' + year_end
-    return date
+months = {"January": 1, "February": 2, "March": 3, "April": 4,
+          "May": 5, "June": 6, "July": 7, "August": 8, "September": 9,
+          "October": 10, "November": 11, "December": 12}
 
 
-if __name__ == "__main__":
+inputfile = open("inputDates.txt", "r")
+outputfile = open("parsedDates.txt", "w")
 
-    f = open("inputDates.txt","r")
-    date_data = f.read().split('\n')
-    f.close()
 
-    f = open("parsedDates.txt","w")
-    for date in date_data:
-        print(date)
-        new_date = get_dates(date)
-        f.writelines(new_date+"\n")
-        print(new_date)
-    f.close()
+for line in inputfile:
+
+    line = line.strip()
+
+
+    if line.find(",") != -1:
+
+
+        line = line.split()
+
+
+        if line[0].isalpha():
+
+
+            if "," in line[1]:
+
+
+                if line[2].isdigit():
+
+                    month = str(months[line[0]])
+
+
+                    day = line[1].replace(",", "")
+
+
+                    year = line[2]
+
+
+                    outputfile.write(month + "/" + day + "/" + year)
+                    outputfile.write("\n")
+
+
+inputfile.close()
+outputfile.close()
